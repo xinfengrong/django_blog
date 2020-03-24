@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html class=" js csstransforms3d"><head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>修改密码</title>
+	<link rel="stylesheet" href="/static/css/base.css">
+	<link rel="stylesheet" href="/static/css/page.css">
+	<!--[if lte IE 8]>
+	<link href="/static/css/ie8.css" rel="stylesheet" type="text/css"/>
+	<![endif]-->
+	<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/static/js/main.js"></script>
+	<script type="text/javascript" src="/static/js/modernizr.js"></script>
+	<!--[if IE]>
+	<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+
+<body style="background: #f6f5fa;">
+	<!--content S-->
+	<div class="super-content">
+		<div class="superCtab">
+			<div class="publishArt">
+				<h4>修改密码</h4>
+              <form action="{% url 'App:resetpsw' %}" method="post">
+                  {% csrf_token %}
+				<div class="pubMain">
+					<h5 class="pubtitle">旧密码</h5>
+					<div class="pub-txt-bar">
+						<input type="password" class="shuruTxt shuruTxt2" name="old_password"><b class="error"></b>
+{#						<div class="errorBox">您所输入的旧密码不正确，请重新输入！</div>#}
+					</div>
+                    {% for error in form.old_password.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+					<h5 class="pubtitle" >新密码</h5>
+					<div class="pub-txt-bar">
+						<input type="password" class="shuruTxt shuruTxt2" name="new_password"><b class="error"></b>
+{#						<div class="errorBox">您所输入的旧密码不正确，请重新输入！</div>#}
+					</div>
+                    {% for error in form.new_password.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+					<h5 class="pubtitle">确认密码</h5>
+					<div class="pub-txt-bar">
+						<input type="password" class="shuruTxt shuruTxt2" name="confirm"><b class="error"></b>
+{#						<div class="errorBox">您所输入的旧密码不正确，请重新输入！</div>#}
+					</div>
+                    {% for error in form.confirm.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+					<div class="pub-btn">
+						<input type="submit" id="" value="确定" class="saveBtn">
+						<input type="button" id="" value="重置" class="resetBtn">
+                        <script>
+                            $('.resetBtn').click(function () {
+                                window.location.reload()
+
+                            })
+                        </script>
+					</div>
+                    {% if messages %}
+                        <script>
+                            {% for msg in messages %}
+                                alert('{{ msg }}');
+                            {% endfor %}
+                        </script>
+                    {% endif %}
+                </div>
+               </form>
+			</div>
+		
+		</div>
+		<!--main-->
+		
+	</div>
+	<!--content E-->
+	
+
+
+</body></html>

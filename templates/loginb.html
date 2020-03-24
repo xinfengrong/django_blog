@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>用户登录</title>
+{#	<link rel="stylesheet" href="{% static 'css/base.css' %}" />#}
+    <link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/login.css" />
+    <style>
+        .loginbtn{
+            width: 60px;
+            height: 40px;
+        }
+        .resetbtn{
+            width: 60px;
+            height: 40px;
+        }
+
+        .tabwrap{
+            width: 500px;
+        }
+        .form-control{
+            width: 300px;
+            height: 25px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="superlogin"></div>
+<div class="loginBox">
+	<div class="loginMain">
+      <form action="" method="post">
+          {% csrf_token %}
+		<div class="tabwrap">
+		<table border="0" cellspacing="0" cellpadding="0">
+{#            <tr><td class="title">验证码：</td> <br>#}
+               <tr> 验证码：{{ form.captcha }} {{ form.captcha.errors.0 }}</tr>
+            <tr><td class="title">用户名：</td><td><input type="text" name="username" class="form-control txt" /></td></tr>
+            <tr><td class="title">密   码：</td><td><input type="password" name="password" class="form-control txt" /></td></tr>
+            {% if messages %}
+                <script>
+                    {% for msg in messages %}
+                        alert('{{ msg }}');
+                    {% endfor %}
+                </script>
+            {% endif %}
+            <tr><td>&nbsp;</td><td><input type="submit" name="login" class="loginbtn" value="登录" /><input type="submit" class="resetbtn" name="reset" value="重置" /></td></tr>
+			<tr><td>&nbsp;</td><td class="forgetpsw"></td></tr>	
+		</table>
+		</div>
+       </form>
+	</div>
+</div>
+<div class="footer">Copyright © 2016-2017 jianet  All Rights Reserved.</div>
+</body>
+</html>
+<script src="https://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
+<script>
+    //点击刷新验证码
+    $(function () {
+        $('.captcha').click(function () {
+            console.log('click');
+            $.get('/blog/refresh/',
+                function (result) {
+                    $('.captcha').attr('src',result['image_url']);
+                    $('#id_captcha_0').val(result['key'])
+                });
+        })
+
+    })
+</script>
